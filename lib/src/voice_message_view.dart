@@ -13,13 +13,13 @@ import 'package:voice_message_package/src/widgets/play_pause_button.dart';
 ///
 class VoiceMessageView extends StatelessWidget {
   const VoiceMessageView(
-      {Key? key,
+      {super.key,
       required this.controller,
       this.backgroundColor = Colors.white,
       this.activeSliderColor = Colors.red,
       this.notActiveSliderColor,
       this.circlesColor = Colors.red,
-      this.innerPadding = 12,
+      this.innerPadding,
       this.cornerRadius = 20,
       // this.playerWidth = 170,
       this.size = 38,
@@ -49,8 +49,7 @@ class VoiceMessageView extends StatelessWidget {
         fontSize: 11,
         fontWeight: FontWeight.w500,
       ),
-      this.playPauseButtonLoadingColor = Colors.white})
-      : super(key: key);
+      this.playPauseButtonLoadingColor = Colors.white});
 
   /// The controller for the voice message view.
   final VoiceController controller;
@@ -74,7 +73,7 @@ class VoiceMessageView extends StatelessWidget {
   final TextStyle counterTextStyle;
 
   /// The padding between the inner content and the outer container.
-  final double innerPadding;
+  final EdgeInsetsGeometry? innerPadding;
 
   /// The corner radius of the outer container.
   final double cornerRadius;
@@ -117,7 +116,7 @@ class VoiceMessageView extends StatelessWidget {
 
     return Container(
       width: 160 + (controller.noiseCount * .72.w()),
-      padding: EdgeInsets.all(innerPadding),
+      padding: innerPadding ?? EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(cornerRadius),
@@ -197,8 +196,7 @@ class VoiceMessageView extends StatelessWidget {
                   child: Container(
                     width: controller.noiseWidth,
                     height: 6.w(),
-                    color:
-                        notActiveSliderColor ?? backgroundColor.withOpacity(.4),
+                    color: notActiveSliderColor ?? backgroundColor.withOpacity(.4),
                   ),
                 );
               },
